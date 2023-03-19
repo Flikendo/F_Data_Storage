@@ -47,7 +47,7 @@ public class FuelStationBean {
     }
 
     public void setFuel(int fuel) {
-        this.fuel = fuel;
+        this.fuel = TypeFuel.values()[fuel];
     }
 
     public int getPrice() {
