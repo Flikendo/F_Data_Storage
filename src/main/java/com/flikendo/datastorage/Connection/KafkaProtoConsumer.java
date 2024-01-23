@@ -1,6 +1,6 @@
-package com.flikendo.F_Data_Storage.Connection;
+package com.flikendo.datastorage.Connection;
 
-import com.flikendo.proto.FuelStationTub;
+import com.flikendo.datastorage.Components.FuelStation;
 import com.google.protobuf.Descriptors;
 import com.google.protobuf.DynamicMessage;
 import io.confluent.kafka.serializers.protobuf.KafkaProtobufDeserializer;
@@ -8,13 +8,15 @@ import io.confluent.kafka.serializers.protobuf.KafkaProtobufDeserializerConfig;
 import org.apache.kafka.clients.consumer.*;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.stereotype.Component;
 
 import java.time.Duration;
 import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
 
-import static com.flikendo.F_Data_Storage.Constants.DataInfo.*;
+import static com.flikendo.datastorage.Constants.DataInfo.*;
 
 /**
  * Date: 02-07-2023
@@ -23,6 +25,7 @@ import static com.flikendo.F_Data_Storage.Constants.DataInfo.*;
  * KafkaConsumer class. This class is used to receive protobuf through Kafka from main service
  * (Producer-Consumer)
  */
+@Component
 public class KafkaProtoConsumer {
     // Properties for Kafka's configuration
     private static Properties props;
@@ -45,6 +48,12 @@ public class KafkaProtoConsumer {
     public static <T> void receiveProtobuf() {
         Consumer<String, DynamicMessage> consumer = new KafkaConsumer<>(props);
         consumer.subscribe(Collections.singleton(TOPIC));
+
+        AnnotationConfigApplicationContext context
+                = new AnnotationConfigApplicationContext();
+        context.scan("com.flikendo.datastorage");
+        context.refresh();
+
         try (consumer) {
             consumer.subscribe(List.of(TOPIC));
             while (true) {
@@ -52,6 +61,14 @@ public class KafkaProtoConsumer {
                 for (ConsumerRecord<String, DynamicMessage> record : records) {
                     for (Descriptors.FieldDescriptor field : record.value().getAllFields().keySet()) {
                         System.out.println(field.getName() + ": " + record.value().getField(field));
+                        // ToDo: Create FuelStation
+                        FuelStation fuelStation = context.getBean(FuelStation.class);
+                        fuelStation.setFuel();
+                        fuelStation.setBusiness();
+                        fuelStation.setAddress();
+                        fuelStation.setDate();
+                        fuelStation.setPrice();
+                        fuelStation.setLocation();
                     }
                 }
                 consumer.commitAsync();

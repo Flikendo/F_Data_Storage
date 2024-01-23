@@ -1,4 +1,4 @@
-package com.flikendo.F_Data_Storage.Connection;
+package com.flikendo.datastorage.Connection;
 
 import org.springframework.context.annotation.Configuration;
 

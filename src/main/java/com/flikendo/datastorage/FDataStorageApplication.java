@@ -1,6 +1,6 @@
-package com.flikendo.F_Data_Storage;
+package com.flikendo.datastorage;
 
-import com.flikendo.F_Data_Storage.Connection.KafkaProtoConsumer;
+import com.flikendo.datastorage.Connection.KafkaProtoConsumer;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -11,6 +11,7 @@ public class FDataStorageApplication {
 		SpringApplication.run(FDataStorageApplication.class, args);
 
 		KafkaProtoConsumer.fillInProps();
+		KafkaProtoConsumer.receiveProtobuf();
 	}
 
 }

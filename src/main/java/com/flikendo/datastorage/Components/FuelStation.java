@@ -1,6 +1,8 @@
-package com.flikendo.F_Data_Storage.Beans;
+package com.flikendo.datastorage.Components;
 
-import static com.flikendo.F_Data_Storage.Beans.FuelStationBean.TypeFuel.UNKNOWN;
+import org.springframework.stereotype.Component;
+
+import static com.flikendo.datastorage.Components.FuelStation.TypeFuel.UNKNOWN;
 
 /**
  * Date: 03-12-2023
@@ -8,7 +10,8 @@ import static com.flikendo.F_Data_Storage.Beans.FuelStationBean.TypeFuel.UNKNOWN
  *
  * ProtoBean class. This class is used represent a protobuf as a bean to work with it
  */
-public class FuelStationBean {
+@Component
+public class FuelStation {
     private TypeFuel fuel;
     private int price;
     private String location;
@@ -30,13 +33,22 @@ public class FuelStationBean {
     /**
      * Constructor
      */
-    public FuelStationBean() {
+    public FuelStation() {
         this.fuel = UNKNOWN;
         this.price = 0;
         this.location = "";
         this.date = "";
         this.address = "";
         this.business = "";
+    }
+
+    public FuelStation(TypeFuel fuel, int price, String location, String date, String address, String business) {
+        this.fuel = fuel;
+        this.price = price;
+        this.location = location;
+        this.date = date;
+        this.address = address;
+        this.business = business;
     }
 
     /**

@@ -1,4 +1,4 @@
-package com.flikendo.F_Data_Storage.Beans;
+package com.flikendo.datastorage.Components;
 
 import org.springframework.stereotype.Service;
 

@@ -1,4 +1,4 @@
-package com.flikendo.F_Data_Storage.Constants;
+package com.flikendo.datastorage.Constants;
 
 /**
  * Date: 03-12-2023
