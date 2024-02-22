@@ -22,11 +22,8 @@ import static org.apache.kafka.clients.consumer.ConsumerConfig.*;
 @EnableKafka
 @Configuration
 public class KafkaConsumerConfig {
-    // Localhost:port read from application.properties
     @Value("${spring.kafka.bootstrapServers}")
     private String bootstrapServers;
-
-    // Group Id read from application.conf
     @Value("${spring.kafka.consumer.group-id}")
     private String groupId;
 

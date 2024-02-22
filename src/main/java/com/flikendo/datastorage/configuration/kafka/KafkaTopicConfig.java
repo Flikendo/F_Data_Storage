@@ -17,20 +17,12 @@ import java.util.Map;
  */
 @Configuration
 public class KafkaTopicConfig {
-
-    // Localhost:port read from application.properties
     @Value("${spring.kafka.consumer.bootstrap-server}")
     private String bootstrapServers;
-
-    // Topic read from application.properties
     @Value("${spring.kafka.topic}")
     private String topic;
-
-    // Number of partitions read from application.conf
     @Value("${spring.kafka.number-partitions}")
     private int numPartitions;
-
-    // Number of replication factor read from application.conf
     @Value("${spring.kafka.replication-factor}")
     private int replicationFactor;
 
